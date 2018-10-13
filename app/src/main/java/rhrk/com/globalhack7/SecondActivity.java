@@ -1,6 +1,8 @@
 package rhrk.com.globalhack7;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -27,11 +29,31 @@ public class SecondActivity extends AppCompatActivity {
         clickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = inputChatText.getText().toString();
-                Toast msg = Toast.makeText(getBaseContext(),str,Toast.LENGTH_LONG);
-                msg.show();
+                AlertDialog.Builder a_builder = new AlertDialog.Builder(SecondActivity.this);
+                a_builder.setMessage("Do you want to submit the chat message ?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = a_builder.create();
+                alertDialog.setTitle("Aleart !");
+                alertDialog.show();
+
+//                String str = inputChatText.getText().toString();
+//                Toast msg = Toast.makeText(getBaseContext(),str,Toast.LENGTH_LONG);
+//                msg.show();
             }
         });
+
     }
 
 
