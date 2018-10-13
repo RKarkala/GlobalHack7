@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GlobalHack7</string>
+    <string name="record">Record</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
