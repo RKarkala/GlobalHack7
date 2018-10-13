@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         codes.put("English", "en")
         codes.put("हिंदी", "hi")
         codes.put("Español", "es")
-        codes.put("عربى", "ar")
         codes.put("Melayu", "ms")
         codes.put("русский", "ru")
         codes.put("বাঙালি", "bn")
