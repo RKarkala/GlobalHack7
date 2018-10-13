@@ -103,6 +103,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         when(p0!!.id){
             R.id.sourceLanguage -> {
                 sourceLanguageCode = codes.get(p0.getItemAtPosition(p2)).toString()
+
             }
             R.id.targetLanguage -> {
                 targetLanguageCode = codes.get(p0.getItemAtPosition(p2)).toString()
@@ -112,6 +113,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
     override fun onClick(view: View) {
         if (view === record) {
+            mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+            mSpeechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
+                    sourceLanguageCode)
+            mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
+                    this.packageName)
+            val listener = SpeechRecognitionListener()
+            mSpeechRecognizer.setRecognitionListener(listener)
             if (record.text == getString(R.string.record)) {
                 record.text = getString(R.string.stop)
             } else {
@@ -121,7 +130,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             if (mIslistening) {
                 mSpeechRecognizer.startListening(mSpeechRecognizerIntent)
             } else {
+                System.out.println("Destroyed when button says ${record.text}");
                 mSpeechRecognizer.stopListening()
+                mSpeechRecognizer.cancel()
+                mSpeechRecognizer.destroy()
+
             }
         }
     }
@@ -187,6 +200,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
                 Log.i("Transcript", match)
             }
             record.text = getString(R.string.record)
+            mIslistening = false
             System.out.println(matches[0]);
             val a = Translate().execute(arrayOf(matches[0], targetLanguageCode)).get().toString()
             System.out.println(a);
