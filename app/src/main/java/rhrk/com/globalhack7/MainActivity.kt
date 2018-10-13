@@ -2,18 +2,23 @@ package rhrk.com.globalhack7
 
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import java.util.Locale
+import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -23,10 +28,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mSpeechRecognizer: SpeechRecognizer
     private lateinit var mSpeechRecognizerIntent: Intent
     private var mIslistening: Boolean = false
+    private val RECORD_AUDIO_CODE = 11;
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.RECORD_AUDIO), RECORD_AUDIO_CODE)
+        }
+
         record = findViewById(R.id.record)
         transcript = findViewById(R.id.transcript)
         record.setOnClickListener(this)
@@ -58,7 +70,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            RECORD_AUDIO_CODE -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+                    Toast.makeText(this, "App needs audio permissions to work", Toast.LENGTH_LONG).show();
+                }
+                return
+            }
 
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                // Ignore all other requests.
+            }
+        }
+    }
 
     private inner class SpeechRecognitionListener : RecognitionListener {
 
@@ -91,7 +123,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         override fun onReadyForSpeech(params: Bundle) {
             Log.d("Speech", "onReadyForSpeech") //$NON-NLS-1$
         }
-
+        @Suppress("DEPRECATION")
         override fun onResults(results: Bundle) {
             //Log.d(TAG, "onResults"); //$NON-NLS-1$
             val matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
