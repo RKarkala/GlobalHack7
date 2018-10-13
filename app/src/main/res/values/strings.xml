@@ -3,4 +3,9 @@
     <string name="record">Record</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="stop">Stop</string>
+    <string name="chat">Chat</string>
+    <string name="chat_respond_message">Chat respond message...</string>
+    <string name="submit">Submit</string>
+    <string name="please_enter_your_message">please enter your message</string>
+    <string name="how_can_i_help">How can I help</string>
 </resources>

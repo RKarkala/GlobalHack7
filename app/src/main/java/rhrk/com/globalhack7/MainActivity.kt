@@ -22,6 +22,7 @@ import java.util.jar.Manifest
 class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
 
+    private lateinit var chat: Button;
     private lateinit var record: Button
     private lateinit var transcript: TextView
     private lateinit var t1: TextToSpeech
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         if(!hasPermissions(this, permissions)){
             ActivityCompat.requestPermissions(this, permissions, ALL_CODE);
         }
+
         codes.put("中文", "zh")
         codes.put("English", "en")
         codes.put("हिंदी", "hi")
@@ -69,9 +71,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         sourceLanguage.onItemSelectedListener = this
         targetLanguage.onItemSelectedListener = this
 
+        chat = findViewById(R.id.chat)
         record = findViewById(R.id.record)
         transcript = findViewById(R.id.transcript)
         record.setOnClickListener(this)
+        chat.setOnClickListener(this)
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
         mSpeechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
@@ -136,8 +140,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
                 mSpeechRecognizer.destroy()
 
             }
+        } else if (view == chat) {
+                //start second activity
+                val intent = Intent(this, SecondActivity::class.java)
+                startActivity(intent)
         }
     }
+
+
+
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
