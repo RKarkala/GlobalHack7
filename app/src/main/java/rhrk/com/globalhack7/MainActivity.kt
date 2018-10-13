@@ -42,7 +42,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var permissions = arrayOf(android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.INTERNET, android.Manifest.permission.ACCESS_NETWORK_STATE)
+        var permissions = arrayOf(android.Manifest.permission.RECORD_AUDIO,
+                android.Manifest.permission.INTERNET,
+                android.Manifest.permission.ACCESS_NETWORK_STATE,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
         if(!hasPermissions(this, permissions)){
             ActivityCompat.requestPermissions(this, permissions, ALL_CODE);
         }
@@ -141,7 +145,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             }
         } else if (view == chat) {
                 //start second activity
-                val intent = Intent(this, SecondActivity::class.java)
+                val intent = Intent(this, MapsActivity::class.java)
                 startActivity(intent)
         }
     }
