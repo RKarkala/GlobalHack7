@@ -1,6 +1,7 @@
 package rhrk.com.globalhack7
 
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -28,16 +29,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mSpeechRecognizer: SpeechRecognizer
     private lateinit var mSpeechRecognizerIntent: Intent
     private var mIslistening: Boolean = false
-    private val RECORD_AUDIO_CODE = 11;
+    private val ALL_CODE = 11;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.RECORD_AUDIO), RECORD_AUDIO_CODE)
+        var permissions = arrayOf(android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.INTERNET, android.Manifest.permission.ACCESS_NETWORK_STATE)
+        if(!hasPermissions(this, permissions)){
+            ActivityCompat.requestPermissions(this, permissions, ALL_CODE);
         }
+
 
         record = findViewById(R.id.record)
         transcript = findViewById(R.id.transcript)
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
         mSpeechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
-                "zh")
+                "en")
 
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
                 this.packageName)
@@ -53,6 +55,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val listener = SpeechRecognitionListener()
         mSpeechRecognizer.setRecognitionListener(listener)
+    }
+
+    fun hasPermissions(context: Context?, permissions: Array<String>?): Boolean {
+        if (context != null && permissions != null) {
+            for (permission in permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false
+                }
+            }
+        }
+        return true
     }
 
     override fun onClick(view: View) {
@@ -73,13 +86,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
-            RECORD_AUDIO_CODE -> {
+            ALL_CODE -> {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                 } else {
-                    Toast.makeText(this, "App needs audio permissions to work", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Permissions required", Toast.LENGTH_LONG).show();
                 }
                 return
             }
@@ -133,7 +146,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             record.text = getString(R.string.record)
             t1 = TextToSpeech(applicationContext, TextToSpeech.OnInitListener { i ->
                 if (i == TextToSpeech.SUCCESS) {
-                    t1.language = Locale.SIMPLIFIED_CHINESE
+                    t1.language = Locale.ENGLISH
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                         t1.speak(matches[0], TextToSpeech.QUEUE_FLUSH, null, null)
                     }else {
@@ -141,7 +154,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
             }, "com.google.android.tts")
-
+            val a = Translate().execute(arrayOf(matches[0], "zh")).toString()
+            Toast.makeText(applicationContext, a, Toast.LENGTH_LONG).show()
             transcript.text = matches[0]
             // matches are the return values of speech recognition engine
             // Use these values for whatever you wish to do
