@@ -23,6 +23,7 @@ import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+    private lateinit var chat: Button;
     private lateinit var record: Button
     private lateinit var transcript: TextView
     private lateinit var t1: TextToSpeech
@@ -30,7 +31,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mSpeechRecognizerIntent: Intent
     private var mIslistening: Boolean = false
     private val ALL_CODE = 11;
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +40,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             ActivityCompat.requestPermissions(this, permissions, ALL_CODE);
         }
 
-
+        chat = findViewById(R.id.chat)
         record = findViewById(R.id.record)
         transcript = findViewById(R.id.transcript)
         record.setOnClickListener(this)
+        chat.setOnClickListener(this)
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
         mSpeechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
@@ -81,8 +82,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             } else {
                 mSpeechRecognizer.stopListening()
             }
+        } else if (view == chat) {
+                //start second activity
+                val intent = Intent(this, SecondActivity::class.java)
+                startActivity(intent)
         }
     }
+
+
+
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
