@@ -18,8 +18,8 @@ class Translate() : AsyncTask<Array<String>, Void, String>() {
                 .build()
         val response = client.newCall(request).execute()
         val data = JSONObject(response.body()!!.string())
-        System.out.println(data.getJSONArray("text"))
-        return (data.getJSONArray("text")[0]).toString()
+        System.out.println(data.getJSONArray("text")[0])
+        return data.getJSONArray("text")[0].toString()
 
     }
 

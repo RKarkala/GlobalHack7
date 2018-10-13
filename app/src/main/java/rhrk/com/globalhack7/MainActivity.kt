@@ -154,9 +154,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
             }, "com.google.android.tts")
-            val a = Translate().execute(arrayOf(matches[0], "zh")).toString()
+            val a = Translate().execute(arrayOf(matches[0], "zh")).get().toString()
             Toast.makeText(applicationContext, a, Toast.LENGTH_LONG).show()
-            transcript.text = matches[0]
+            transcript.text = a
             // matches are the return values of speech recognition engine
             // Use these values for whatever you wish to do
         }
