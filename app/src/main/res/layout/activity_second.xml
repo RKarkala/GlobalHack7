@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:enabled="false"
+        android:text="How can I help"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="48dp"
+        tools:text="What can I help ?" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="395dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="139dp"
+        tools:ignore="MissingConstraints">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/chatTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="please enter your message" />
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/chatTextOutput"
+        android:layout_width="310dp"
+        android:layout_height="82dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="52dp"
+        tools:layout_editor_absoluteY="236dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btnSubmitChat"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Submit"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="421dp"
+        tools:ignore="MissingConstraints" />
+
+
+</android.support.constraint.ConstraintLayout>
