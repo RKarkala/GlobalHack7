@@ -15,22 +15,28 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import java.util.Locale
 import java.util.jar.Manifest
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
+
 
     private lateinit var record: Button
     private lateinit var transcript: TextView
     private lateinit var t1: TextToSpeech
     private lateinit var mSpeechRecognizer: SpeechRecognizer
     private lateinit var mSpeechRecognizerIntent: Intent
+    private lateinit var sourceLanguage : Spinner
+    private lateinit var targetLanguage : Spinner
+
+    private var sourceLanguageCode : String = "zh"
+    private var targetLanguageCode: String = "zh"
+
     private var mIslistening: Boolean = false
     private val ALL_CODE = 11;
 
+    private var codes = HashMap<String, String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +45,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if(!hasPermissions(this, permissions)){
             ActivityCompat.requestPermissions(this, permissions, ALL_CODE);
         }
-
+        codes.put("中文", "zh")
+        codes.put("English", "en")
+        codes.put("हिंदी", "hi")
+        codes.put("Español", "es")
+        codes.put("عربى", "ar")
+        codes.put("Melayu", "ms")
+        codes.put("русский", "ru")
+        codes.put("বাঙালি", "bn")
+        codes.put("Português", "pt")
+        codes.put("Français", "fr")
+        sourceLanguage = findViewById(R.id.sourceLanguage)
+        targetLanguage = findViewById(R.id.targetLanguage)
+        ArrayAdapter.createFromResource(
+                this,
+                R.array.language_array,
+                android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            sourceLanguage.adapter = adapter
+            targetLanguage.adapter = adapter
+        }
+        sourceLanguage.onItemSelectedListener = this
+        targetLanguage.onItemSelectedListener = this
 
         record = findViewById(R.id.record)
         transcript = findViewById(R.id.transcript)
@@ -47,7 +75,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
         mSpeechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
-                "en")
+                sourceLanguageCode)
 
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
                 this.packageName)
@@ -66,6 +94,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
         return true
+    }
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        when(p0!!.id){
+            R.id.sourceLanguage -> {
+                sourceLanguageCode = codes.get(p0.getItemAtPosition(p2)).toString()
+            }
+            R.id.targetLanguage -> {
+                targetLanguageCode = codes.get(p0.getItemAtPosition(p2)).toString()
+            }
+        }
     }
 
     override fun onClick(view: View) {
@@ -140,23 +182,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         override fun onResults(results: Bundle) {
             //Log.d(TAG, "onResults"); //$NON-NLS-1$
             val matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+            System.out.println(matches)
             for (match in matches!!) {
                 Log.i("Transcript", match)
             }
             record.text = getString(R.string.record)
+            System.out.println(matches[0]);
+            val a = Translate().execute(arrayOf(matches[0], targetLanguageCode)).get().toString()
+            System.out.println(a);
             t1 = TextToSpeech(applicationContext, TextToSpeech.OnInitListener { i ->
                 if (i == TextToSpeech.SUCCESS) {
-                    t1.language = Locale.ENGLISH
+                    t1.language = Locale(targetLanguageCode)
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                        t1.speak(matches[0], TextToSpeech.QUEUE_FLUSH, null, null)
+                        t1.speak(a, TextToSpeech.QUEUE_FLUSH, null, null)
                     }else {
-                        t1.speak(matches[0], TextToSpeech.QUEUE_FLUSH, null)
+                        t1.speak(a, TextToSpeech.QUEUE_FLUSH, null)
                     }
                 }
             }, "com.google.android.tts")
-            val a = Translate().execute(arrayOf(matches[0], "zh")).get().toString()
-            Toast.makeText(applicationContext, a, Toast.LENGTH_LONG).show()
-            transcript.text = a
+
             // matches are the return values of speech recognition engine
             // Use these values for whatever you wish to do
         }
