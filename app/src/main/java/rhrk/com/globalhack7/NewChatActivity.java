@@ -1,8 +1,13 @@
 package rhrk.com.globalhack7;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -17,7 +22,7 @@ import com.scaledrone.lib.Scaledrone;
 
 import java.util.Random;
 
-public class NewChatActivity extends AppCompatActivity implements RoomListener {
+public class NewChatActivity extends Fragment implements RoomListener {
 
     // replace this with a real channelID from Scaledrone dashboard
     private String channelID = "CHANNEL_ID_FROM_YOUR_SCALEDRONE_DASHBOARD";
@@ -27,15 +32,15 @@ public class NewChatActivity extends AppCompatActivity implements RoomListener {
     private MessageAdapter messageAdapter;
     private ListView messagesView;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_newchat);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_newchat, null);
 
-        editText = (EditText) findViewById(R.id.editText);
+        editText = (EditText) view.findViewById(R.id.editText);
 
-        messageAdapter = new MessageAdapter(this);
-        messagesView = (ListView) findViewById(R.id.messages_view);
+        messageAdapter = new MessageAdapter(getContext());
+        messagesView = (ListView) view.findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
 
         MemberData data = new MemberData(getRandomName(), getRandomColor());
@@ -63,7 +68,10 @@ public class NewChatActivity extends AppCompatActivity implements RoomListener {
                 System.err.println(reason);
             }
         });
+
+        return view;
     }
+
 
     public void sendMessage(View view) {
         String message = editText.getText().toString();
@@ -90,7 +98,7 @@ public class NewChatActivity extends AppCompatActivity implements RoomListener {
             final MemberData data = mapper.treeToValue(member.getClientData(), MemberData.class);
             boolean belongsToCurrentUser = member.getId().equals(scaledrone.getClientID());
             final Message message = new Message(json.asText(), data, belongsToCurrentUser);
-            runOnUiThread(new Runnable() {
+            getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     messageAdapter.add(message);

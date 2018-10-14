@@ -11,6 +11,7 @@
         android:text="欢迎"
         android:paddingTop="150dp"
         android:textSize="45dp"
+        android:fontFamily="@font/opensans"
         android:id="@+id/welcome"
         />
 
@@ -23,6 +24,7 @@
         android:gravity="center_horizontal"
         android:paddingBottom="100dp"
         android:textSize="17dp"
+        android:fontFamily="@font/opensans"
         android:id="@+id/tap"
         />
 </RelativeLayout>

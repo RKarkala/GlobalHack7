@@ -30,8 +30,8 @@ public class BottomNavigation extends AppCompatActivity {
                     fragment = new MainActivity();
                     return loadFragment(fragment);
                 case R.id.chat:
-
-                    return true;
+                    fragment = new NewChatActivity();
+                    return loadFragment(fragment);
                 case R.id.clinics:
                     System.out.println("clinics");
                     fragment = new MapsActivity();
