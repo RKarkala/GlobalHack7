@@ -51,7 +51,7 @@ class MainActivity : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
         codes.put("বাঙালি", "bn")
         codes.put("Português", "pt")
         codes.put("Français", "fr")
-        select = view.findViewById(R.id.aa);
+        select = view.findViewById(R.id.aa)
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
         sourceLanguageCode = sharedPrefs.getString("source_language", "zh")
         targetLanguage = view.findViewById(R.id.targetLanguage)
