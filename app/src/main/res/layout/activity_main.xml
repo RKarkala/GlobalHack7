@@ -18,8 +18,11 @@
         android:id="@+id/record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/record"
         android:layout_centerInParent="true"
-        android:text="@string/record"></Button>
+        android:scaleX=".5"
+        android:scaleY=".5"
+    ></Button>
 
     <TextView
         android:layout_width="match_parent"
@@ -27,18 +30,12 @@
         android:id="@+id/transcript"
         android:layout_below="@id/record"
         />
-    <Spinner
-        android:id="@+id/sourceLanguage"
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        />
 
     <Spinner
         android:id="@+id/targetLanguage"
         android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
         />
 
     <android.support.v7.widget.Toolbar
@@ -50,20 +47,7 @@
         android:background="#FFAE00"
         app:title="Nav Drawer with Swipe Tabs"/>
 
-    <android.support.v4.widget.DrawerLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/drawerLayout">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/containerView"
-            android:orientation="vertical">
-
-        </FrameLayout>
-
-    </android.support.v4.widget.DrawerLayout>
     <Button
         android:id="@+id/chat"
         android:layout_width="wrap_content"

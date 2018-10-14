@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -28,10 +29,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
     private lateinit var t1: TextToSpeech
     private lateinit var mSpeechRecognizer: SpeechRecognizer
     private lateinit var mSpeechRecognizerIntent: Intent
-    private lateinit var sourceLanguage : Spinner
     private lateinit var targetLanguage : Spinner
 
-    private var sourceLanguageCode : String = "zh"
+    private lateinit var sourceLanguageCode : String;
     private var targetLanguageCode: String = "zh"
 
     private var mIslistening: Boolean = false
@@ -60,7 +60,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         codes.put("বাঙালি", "bn")
         codes.put("Português", "pt")
         codes.put("Français", "fr")
-        sourceLanguage = findViewById(R.id.sourceLanguage)
+        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+        sourceLanguageCode = sharedPrefs.getString("source_language", "zh")
         targetLanguage = findViewById(R.id.targetLanguage)
         ArrayAdapter.createFromResource(
                 this,
@@ -68,10 +69,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
                 android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            sourceLanguage.adapter = adapter
             targetLanguage.adapter = adapter
         }
-        sourceLanguage.onItemSelectedListener = this
         targetLanguage.onItemSelectedListener = this
 
         chat = findViewById(R.id.chat)
@@ -108,10 +107,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         when(p0!!.id){
-            R.id.sourceLanguage -> {
-                sourceLanguageCode = codes.get(p0.getItemAtPosition(p2)).toString()
-
-            }
             R.id.targetLanguage -> {
                 targetLanguageCode = codes.get(p0.getItemAtPosition(p2)).toString()
             }
@@ -128,12 +123,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
                     this.packageName)
             val listener = SpeechRecognitionListener()
             mSpeechRecognizer.setRecognitionListener(listener)
-            if (record.text == getString(R.string.record)) {
-                record.text = getString(R.string.stop)
-            } else {
-                record.text = getString(R.string.record)
-            }
             mIslistening = !mIslistening
+            if (mIslistening) {
+                record.setBackgroundResource(R.drawable.stop)
+            } else {
+                record.setBackgroundResource(R.drawable.record)
+            }
+
             if (mIslistening) {
                 mSpeechRecognizer.startListening(mSpeechRecognizerIntent)
             } else {
@@ -213,7 +209,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             for (match in matches!!) {
                 Log.i("Transcript", match)
             }
-            record.text = getString(R.string.record)
+            record.setBackgroundResource(R.drawable.record)
             mIslistening = false
             System.out.println(matches[0]);
             val a = Translate().execute(arrayOf(matches[0], targetLanguageCode)).get().toString()
