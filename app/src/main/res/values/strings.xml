@@ -13,4 +13,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="how_are_you_doing_this_is_a_long_message_that_should_probably_wrap">How are you doing? This is a long message that should probably wrap.</string>
+    <string name="rose">Rose</string>
 </resources>

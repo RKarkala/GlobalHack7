@@ -4,7 +4,7 @@ class MemberData {
     private String name;
     private String color;
 
-    public MemberData(String name, String color) {
+    MemberData(String name, String color) {
         this.name = name;
         this.color = color;
     }

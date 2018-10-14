@@ -31,6 +31,8 @@ public class NewChatActivity extends Fragment implements RoomListener, View.OnCl
     // replace this with a real channelID from Scaledrone dashboard
     private String channelID = "7LCPo3EPZ708kdZm";
     private String roomName = "observable-room";
+    private String secretKey = "gDNqtXlUaYsIRmL3yEPXHcf6yE8yZvRU";
+
     private EditText editText;
     private Scaledrone scaledrone;
     private MessageAdapter messageAdapter;
@@ -143,6 +145,7 @@ public class NewChatActivity extends Fragment implements RoomListener, View.OnCl
                 @Override
                 public void run() {
                     messageAdapter.add(message);
+                    // scroll the ListView to the last added element
                     messagesView.setSelection(messagesView.getCount() - 1);
                 }
             });
