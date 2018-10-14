@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:fitsSystemWindows="true"
-    tools:context=".MainActivity"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
 
 
     <Button
         android:id="@+id/record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/record"
         android:layout_centerInParent="true"
+        android:background="@drawable/record"
         android:scaleX=".5"
-        android:scaleY=".5"
-    />
+        android:scaleY=".5" />
 
 
     <Spinner
         android:id="@+id/targetLanguage"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
-        />
-
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
 
 
     <Button
@@ -36,7 +33,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="119dp"
-        android:text="@string/chat" />
+        android:background="#C44E4E"
+        android:text="@string/chat"
+        android:textColor="#ffffff" />
 
 
 </RelativeLayout>
