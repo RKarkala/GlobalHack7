@@ -22,11 +22,14 @@ import com.scaledrone.lib.RoomListener;
 import com.scaledrone.lib.Scaledrone;
 
 import java.util.Random;
+import java.util.TimerTask;
+import java.util.Timer;
+
 
 public class NewChatActivity extends Fragment implements RoomListener, View.OnClickListener {
 
     // replace this with a real channelID from Scaledrone dashboard
-    private String channelID = "CHANNEL_ID_FROM_YOUR_SCALEDRONE_DASHBOARD";
+    private String channelID = "7LCPo3EPZ708kdZm";
     private String roomName = "observable-room";
     private EditText editText;
     private Scaledrone scaledrone;
@@ -51,10 +54,12 @@ public class NewChatActivity extends Fragment implements RoomListener, View.OnCl
 
         scaledrone = new Scaledrone(channelID, data);
         scaledrone.connect(new Listener() {
+            final Scaledrone drone = new Scaledrone(channelID);
             @Override
             public void onOpen() {
                 System.out.println("Scaledrone connection open");
                 scaledrone.subscribe(roomName, NewChatActivity.this);
+
             }
 
             @Override
@@ -64,7 +69,39 @@ public class NewChatActivity extends Fragment implements RoomListener, View.OnCl
 
             @Override
             public void onFailure(Exception ex) {
-                System.err.println(ex);
+                tryReconnecting(0);
+            }
+
+            private void tryReconnecting(final int reconnectAttempt) {
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        final Scaledrone drone = new Scaledrone("channel-id");
+                        drone.connect(new Listener() {
+                            @Override
+                            public void onOpen() {
+
+                            }
+
+                            @Override
+                            public void onOpenFailure(Exception ex) {
+
+                            }
+
+                            @Override
+                            public void onFailure(Exception ex) {
+                                tryReconnecting(reconnectAttempt + 1);
+                            }
+
+                            @Override
+                            public void onClosed(String reason) {
+
+                            }
+                        });
+                        // set everything up again..
+                    }
+                }, reconnectAttempt * 1000);
             }
 
             @Override
