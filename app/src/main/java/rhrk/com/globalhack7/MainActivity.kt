@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
     private lateinit var chat: Button;
     private lateinit var record: Button
-    private lateinit var transcript: TextView
     private lateinit var t1: TextToSpeech
     private lateinit var mSpeechRecognizer: SpeechRecognizer
     private lateinit var mSpeechRecognizerIntent: Intent
@@ -75,7 +74,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
         chat = findViewById(R.id.chat)
         record = findViewById(R.id.record)
-        transcript = findViewById(R.id.transcript)
         record.setOnClickListener(this)
         chat.setOnClickListener(this)
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)

@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/RelativeLayout01"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout
     android:fitsSystemWindows="true"
     tools:context=".MainActivity"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
-
-
-<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <Button
         android:id="@+id/record"
@@ -22,14 +17,8 @@
         android:layout_centerInParent="true"
         android:scaleX=".5"
         android:scaleY=".5"
-    ></Button>
+    />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/transcript"
-        android:layout_below="@id/record"
-        />
 
     <Spinner
         android:id="@+id/targetLanguage"
@@ -38,14 +27,6 @@
         android:layout_alignParentTop="true"
         />
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/toolbar"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="#FFAE00"
-        app:title="Nav Drawer with Swipe Tabs"/>
 
 
     <Button
@@ -56,6 +37,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="119dp"
         android:text="@string/chat" />
-</RelativeLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

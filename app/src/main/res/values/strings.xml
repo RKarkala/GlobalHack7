@@ -9,4 +9,8 @@
     <string name="please_enter_your_message">please enter your message</string>
     <string name="how_can_i_help">How can I help</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_bottom_navigation">BottomNavigation</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, BottomNavigation.class);
                     startActivity(intent);
                 }
 
