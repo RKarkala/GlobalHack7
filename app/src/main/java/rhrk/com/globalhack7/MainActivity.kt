@@ -6,42 +6,50 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.support.v4.app.ActivityCompat
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import java.util.Locale
-import java.util.jar.Manifest
 
-class MainActivity : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
 
-    private lateinit var chat: Button;
+    private lateinit var chat: Button
+    private lateinit var map1: Button
     private lateinit var record: Button
+    private lateinit var transcript: TextView
     private lateinit var t1: TextToSpeech
     private lateinit var mSpeechRecognizer: SpeechRecognizer
     private lateinit var mSpeechRecognizerIntent: Intent
+    private lateinit var sourceLanguage : Spinner
     private lateinit var targetLanguage : Spinner
 
-    private lateinit var sourceLanguageCode : String;
+    private var sourceLanguageCode : String = "zh"
     private var targetLanguageCode: String = "zh"
 
     private var mIslistening: Boolean = false
+    private val ALL_CODE = 11;
 
     private var codes = HashMap<String, String>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view  = inflater.inflate(R.layout.activity_main, null)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        var permissions = arrayOf(android.Manifest.permission.RECORD_AUDIO,
+                android.Manifest.permission.INTERNET,
+                android.Manifest.permission.ACCESS_NETWORK_STATE,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+        if(!hasPermissions(this, permissions)){
+            ActivityCompat.requestPermissions(this, permissions, ALL_CODE);
+        }
+
         codes.put("中文", "zh")
         codes.put("English", "en")
         codes.put("हिंदी", "hi")
@@ -51,44 +59,60 @@ class MainActivity : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
         codes.put("বাঙালি", "bn")
         codes.put("Português", "pt")
         codes.put("Français", "fr")
-        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
-        sourceLanguageCode = sharedPrefs.getString("source_language", "zh")
-        targetLanguage = view.findViewById(R.id.targetLanguage)
+        sourceLanguage = findViewById(R.id.sourceLanguage)
+        targetLanguage = findViewById(R.id.targetLanguage)
         ArrayAdapter.createFromResource(
-                context,
+                this,
                 R.array.language_array,
                 android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            sourceLanguage.adapter = adapter
             targetLanguage.adapter = adapter
         }
+        sourceLanguage.onItemSelectedListener = this
         targetLanguage.onItemSelectedListener = this
 
-        chat = view.findViewById(R.id.chat)
-        record = view.findViewById(R.id.record)
+        chat = findViewById(R.id.chat)
+        map1 = findViewById(R.id.map1)
+        record = findViewById(R.id.record)
+        transcript = findViewById(R.id.transcript)
         record.setOnClickListener(this)
         chat.setOnClickListener(this)
-        mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
+        map1.setOnClickListener(this)
+        mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
         mSpeechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
                 sourceLanguageCode)
 
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
-                context?.packageName)
+                this.packageName)
 
 
         val listener = SpeechRecognitionListener()
         mSpeechRecognizer.setRecognitionListener(listener)
-        return view
     }
 
-
+    fun hasPermissions(context: Context?, permissions: Array<String>?): Boolean {
+        if (context != null && permissions != null) {
+            for (permission in permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
     override fun onNothingSelected(p0: AdapterView<*>?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         when(p0!!.id){
+            R.id.sourceLanguage -> {
+                sourceLanguageCode = codes.get(p0.getItemAtPosition(p2)).toString()
+
+            }
             R.id.targetLanguage -> {
                 targetLanguageCode = codes.get(p0.getItemAtPosition(p2)).toString()
             }
@@ -97,21 +121,20 @@ class MainActivity : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
 
     override fun onClick(view: View) {
         if (view === record) {
-            mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
+            mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
             mSpeechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
                     sourceLanguageCode)
             mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
-                    context?.packageName)
+                    this.packageName)
             val listener = SpeechRecognitionListener()
             mSpeechRecognizer.setRecognitionListener(listener)
-            mIslistening = !mIslistening
-            if (mIslistening) {
-                record.setBackgroundResource(R.drawable.stop)
+            if (record.text == getString(R.string.record)) {
+                record.text = getString(R.string.stop)
             } else {
-                record.setBackgroundResource(R.drawable.record)
+                record.text = getString(R.string.record)
             }
-
+            mIslistening = !mIslistening
             if (mIslistening) {
                 mSpeechRecognizer.startListening(mSpeechRecognizerIntent)
             } else {
@@ -121,10 +144,40 @@ class MainActivity : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
                 mSpeechRecognizer.destroy()
 
             }
+        } else if (view == chat) {
+                //start chat activity
+                val intent = Intent(this, NewChatActivity::class.java)
+                startActivity(intent)
+        } else if (view == map1) {
+                val intent = Intent(this, MapsActivity::class.java)
+                startActivity(intent)
         }
+
     }
 
 
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            ALL_CODE -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+                    Toast.makeText(this, "Permissions required", Toast.LENGTH_LONG).show();
+                }
+                return
+            }
+
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                // Ignore all other requests.
+            }
+        }
+    }
 
     private inner class SpeechRecognitionListener : RecognitionListener {
 
@@ -165,12 +218,12 @@ class MainActivity : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
             for (match in matches!!) {
                 Log.i("Transcript", match)
             }
-            record.setBackgroundResource(R.drawable.record)
+            record.text = getString(R.string.record)
             mIslistening = false
             System.out.println(matches[0]);
             val a = Translate().execute(arrayOf(matches[0], targetLanguageCode)).get().toString()
             System.out.println(a);
-            t1 = TextToSpeech(context, TextToSpeech.OnInitListener { i ->
+            t1 = TextToSpeech(applicationContext, TextToSpeech.OnInitListener { i ->
                 if (i == TextToSpeech.SUCCESS) {
                     t1.language = Locale(targetLanguageCode)
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
