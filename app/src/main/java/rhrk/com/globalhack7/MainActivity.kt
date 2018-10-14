@@ -11,14 +11,11 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.*
-import kotlinx.android.synthetic.main.activity_maps.*
 import java.util.Locale
-import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -148,8 +145,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
 
             }
         } else if (view == chat) {
-                //start second activity
-                val intent = Intent(this, SecondActivity::class.java)
+                //start chat activity
+                val intent = Intent(this, ChatActivity::class.java)
                 startActivity(intent)
         } else if (view == map1) {
                 val intent = Intent(this, MapsActivity::class.java)

@@ -1,6 +1,5 @@
 package rhrk.com.globalhack7;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,10 +13,9 @@ import android.widget.Toast;
 import java.util.Locale;
 
 import android.speech.tts.TextToSpeech;
-import android.speech.tts.TextToSpeech.OnInitListener;
 
 
-public class SecondActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity {
     private int MY_DATA_CHECK_CODE=0;
     TextToSpeech myTTS;
 
@@ -28,7 +26,7 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_chat);
 
         Intent checkTTSIntent= new Intent();
         checkTTSIntent.setAction
@@ -43,7 +41,7 @@ public class SecondActivity extends AppCompatActivity {
         clickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder a_builder = new AlertDialog.Builder(SecondActivity.this);
+                AlertDialog.Builder a_builder = new AlertDialog.Builder(ChatActivity.this);
                 a_builder.setMessage("Do you want to submit the chat message ?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
