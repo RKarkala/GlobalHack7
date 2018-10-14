@@ -64,6 +64,16 @@
         </FrameLayout>
 
     </android.support.v4.widget.DrawerLayout>
+
+    <Button
+        android:id="@+id/map1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="198dp"
+        android:text="@string/map" />
+
     <Button
         android:id="@+id/chat"
         android:layout_width="wrap_content"

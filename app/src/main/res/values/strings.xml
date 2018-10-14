@@ -9,4 +9,6 @@
     <string name="please_enter_your_message">please enter your message</string>
     <string name="how_can_i_help">How can I help</string>
     <string name="title_activity_maps">Map</string>
+    <string name="map">map</string>
+    <string name="map1">map1</string>
 </resources>

@@ -16,13 +16,15 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.*
+import kotlinx.android.synthetic.main.activity_maps.*
 import java.util.Locale
 import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
 
-    private lateinit var chat: Button;
+    private lateinit var chat: Button
+    private lateinit var map1: Button
     private lateinit var record: Button
     private lateinit var transcript: TextView
     private lateinit var t1: TextToSpeech
@@ -75,10 +77,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
         targetLanguage.onItemSelectedListener = this
 
         chat = findViewById(R.id.chat)
+        map1 = findViewById(R.id.map1)
         record = findViewById(R.id.record)
         transcript = findViewById(R.id.transcript)
         record.setOnClickListener(this)
         chat.setOnClickListener(this)
+        map1.setOnClickListener(this)
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
         mSpeechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
@@ -145,9 +149,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             }
         } else if (view == chat) {
                 //start second activity
+                val intent = Intent(this, SecondActivity::class.java)
+                startActivity(intent)
+        } else if (view == map1) {
                 val intent = Intent(this, MapsActivity::class.java)
                 startActivity(intent)
         }
+
     }
 
 
