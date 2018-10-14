@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ImageButton;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -22,7 +23,7 @@ import com.scaledrone.lib.Scaledrone;
 
 import java.util.Random;
 
-public class NewChatActivity extends Fragment implements RoomListener {
+public class NewChatActivity extends Fragment implements RoomListener, View.OnClickListener {
 
     // replace this with a real channelID from Scaledrone dashboard
     private String channelID = "CHANNEL_ID_FROM_YOUR_SCALEDRONE_DASHBOARD";
@@ -31,19 +32,22 @@ public class NewChatActivity extends Fragment implements RoomListener {
     private Scaledrone scaledrone;
     private MessageAdapter messageAdapter;
     private ListView messagesView;
+    ImageButton imageButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_newchat, null);
 
+        imageButton = (ImageButton) view.findViewById(R.id.sentMessage);
         editText = (EditText) view.findViewById(R.id.editText);
-
         messageAdapter = new MessageAdapter(getContext());
         messagesView = (ListView) view.findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
 
         MemberData data = new MemberData(getRandomName(), getRandomColor());
+
+        imageButton.setOnClickListener(this);
 
         scaledrone = new Scaledrone(channelID, data);
         scaledrone.connect(new Listener() {
@@ -73,13 +77,13 @@ public class NewChatActivity extends Fragment implements RoomListener {
     }
 
 
-    public void sendMessage(View view) {
-        String message = editText.getText().toString();
-        if (message.length() > 0) {
-            scaledrone.publish(roomName, message);
-            editText.getText().clear();
-        }
-    }
+//    public void sendMessage(View view) {
+//        String message = editText.getText().toString();
+//        if (message.length() > 0) {
+//            scaledrone.publish(roomName, message);
+//            editText.getText().clear();
+//        }
+//    }
 
     @Override
     public void onOpen(Room room) {
@@ -127,5 +131,14 @@ public class NewChatActivity extends Fragment implements RoomListener {
             sb.append(Integer.toHexString(r.nextInt()));
         }
         return sb.toString().substring(0, 7);
+    }
+
+    @Override
+    public void onClick(View v) {
+        String message = editText.getText().toString();
+        if (message.length() > 0) {
+            scaledrone.publish(roomName, message);
+            editText.getText().clear();
+        }
     }
 }
