@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="Select Target Language"
+            android:textSize="20dp"
             android:textAlignment="center" />
 
         <Spinner
@@ -27,7 +28,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-
             />
     </LinearLayout>
 
@@ -48,8 +48,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/temp1"
         android:layout_centerHorizontal="true"
-        android:background="#C44E4E"
+        android:background="@color/colorPrimary"
         android:text="Swap Languages"
+        android:textSize="24dp"
         android:padding="5dp"
         android:textColor="#ffffff" />
 
