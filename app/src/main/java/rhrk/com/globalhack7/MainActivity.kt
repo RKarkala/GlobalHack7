@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AdapterView.OnIt
             }
         } else if (view == chat) {
                 //start chat activity
-                val intent = Intent(this, ChatActivity::class.java)
+                val intent = Intent(this, NewChatActivity::class.java)
                 startActivity(intent)
         } else if (view == map1) {
                 val intent = Intent(this, MapsActivity::class.java)
