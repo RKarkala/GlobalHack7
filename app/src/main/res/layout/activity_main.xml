@@ -4,9 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    android:padding="10dp"
+    android:gravity="center"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="Select Target Language"
+        android:textAlignment="center"
+        android:id="@+id/aa"
+        />
+
+    <Spinner
+        android:id="@+id/targetLanguage"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+
+ />
+    </LinearLayout>
 
 
     <Button
@@ -15,26 +38,20 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/record"
+        android:padding="30dp"
         android:scaleX=".5"
         android:scaleY=".5" />
-
-
-    <Spinner
-        android:id="@+id/targetLanguage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
 
 
     <Button
         android:id="@+id/chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="119dp"
+        android:layout_below="@id/record"
         android:background="#C44E4E"
-        android:text="@string/chat"
+        android:padding="10dp"
+        android:text="Swap Languages"
         android:textColor="#ffffff" />
 
 

@@ -32,7 +32,7 @@ class MainActivity : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
     private lateinit var mSpeechRecognizer: SpeechRecognizer
     private lateinit var mSpeechRecognizerIntent: Intent
     private lateinit var targetLanguage : Spinner
-
+    private lateinit var select : TextView;
     private lateinit var sourceLanguageCode : String;
     private var targetLanguageCode: String = "zh"
 
@@ -51,6 +51,7 @@ class MainActivity : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
         codes.put("বাঙালি", "bn")
         codes.put("Português", "pt")
         codes.put("Français", "fr")
+        select = view.findViewById(R.id.aa);
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
         sourceLanguageCode = sharedPrefs.getString("source_language", "zh")
         targetLanguage = view.findViewById(R.id.targetLanguage)
@@ -63,8 +64,9 @@ class MainActivity : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
             targetLanguage.adapter = adapter
         }
         targetLanguage.onItemSelectedListener = this
-
+        select.text = Translate().execute(arrayOf(select.text as String, sourceLanguageCode)).get().toString()
         chat = view.findViewById(R.id.chat)
+        chat.text = Translate().execute(arrayOf(chat.text as String, sourceLanguageCode)).get().toString()
         record = view.findViewById(R.id.record)
         record.setOnClickListener(this)
         chat.setOnClickListener(this)
@@ -121,6 +123,11 @@ class MainActivity : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
                 mSpeechRecognizer.destroy()
 
             }
+        }
+        if(view == chat){
+            val temp = sourceLanguageCode
+            sourceLanguageCode = targetLanguageCode
+            targetLanguageCode = temp
         }
     }
 
