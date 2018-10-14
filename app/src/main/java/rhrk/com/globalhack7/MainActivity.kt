@@ -58,9 +58,9 @@ class MainActivity : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
         ArrayAdapter.createFromResource(
                 context,
                 R.array.language_array,
-                android.R.layout.simple_spinner_item
+                R.layout.spinnertext
         ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.spinnertext)
             targetLanguage.adapter = adapter
         }
         targetLanguage.onItemSelectedListener = this

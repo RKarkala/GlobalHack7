@@ -1,16 +1,24 @@
 package rhrk.com.globalhack7;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class BottomNavigation extends AppCompatActivity {
 
@@ -68,8 +76,23 @@ public class BottomNavigation extends AppCompatActivity {
         if(!hasPermissions(this, permissions)){
             ActivityCompat.requestPermissions(this, permissions, ALL_CODE);
         }
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String sourceLanguageCode = sharedPrefs.getString("source_language", "zh");
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        String[] translateStrings = new String[] {navigation.getMenu().getItem(0).getTitle().toString(), sourceLanguageCode};
+        String[] chatString = new String[] {navigation.getMenu().getItem(1).getTitle().toString(), sourceLanguageCode};
+        String[] mapString = new String[] {navigation.getMenu().getItem(2).getTitle().toString(), sourceLanguageCode};
+        try {
+            navigation.getMenu().getItem(0).setTitle(new Translate().execute(translateStrings).get());
+            navigation.getMenu().getItem(1).setTitle(new Translate().execute(chatString).get());
+            navigation.getMenu().getItem(2).setTitle(new Translate().execute(mapString).get());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         loadFragment(new MainActivity());
     }
     protected boolean hasPermissions(Context context, String permissions[]) {
