@@ -43,7 +43,7 @@ public class ChooseLanguage extends AppCompatActivity implements ListView.OnItem
         SharedPreferences mDefaultPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mDefaultPreferences.edit().putBoolean("first_launch", false).commit();
         mDefaultPreferences.edit().putString("source_language", codes.get(values[i])).apply();
-        Intent a = new Intent(this, MainActivity.class);
+        Intent a = new Intent(this, BottomNavigation.class);
         startActivity(a);
     }
 }

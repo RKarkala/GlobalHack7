@@ -17,12 +17,14 @@ import java.io.InputStreamReader
 import com.google.android.gms.maps.model.CameraPosition
 import android.location.Criteria
 import android.content.Context.LOCATION_SERVICE
+import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat.getSystemService
 import android.location.LocationManager
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.SupportMapFragment
 
@@ -94,4 +96,6 @@ class MapsActivity : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
     }
+
+
 }

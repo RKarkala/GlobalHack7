@@ -33,7 +33,7 @@ public class FirstHomeScreen extends AppCompatActivity {
     }
 
     public void screenTapped(View view){
-        Intent i = new Intent(this, BottomNavigation.class);
+        Intent i = new Intent(this, ChooseLanguage.class);
         startActivity(i);
     }
     private void runTopAnimation(){

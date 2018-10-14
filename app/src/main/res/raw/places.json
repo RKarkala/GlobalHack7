@@ -2,8 +2,99 @@
 	{
 		"Name": "Community Care Clinic - Rolla",
 		"Number": "(573) 426-4455",
-		"Lat": 37.947020,
-		"Long": -91.749080,
+		"Lat": 37.94702,
+		"Long": -91.74908,
 		"Description": "Community Clinic limited to patients ages 4 - 17 years old. The Community Care Clinic is a primary care clinic supported by the Phelps County Health Department, Phelps County Regional Medical Center, the Area Health Education Center and volunteer nurses and physicians in the co"
+	},
+	{
+		"Name": "Peoples Health Center - Florissant",
+		"Number": "(314) 838-8220",
+		"Lat": 38.7774557,
+		"Long": -90.2821549,
+		"Description": "This Health Center is based on Sliding scale fees which are variable prices for products, services, or taxes based on a customer's ability to pay. Such fees are thereby reduced for those who have lower incomes, or alternatively, less money to spare after their personal expenses, regardless of income"
+	},
+	{
+		"Name": "St Lukes Episcopal Presbyteria - Chesterfield",
+		"Number": "(314) 576-8100",
+		"Lat": 38.6515128,
+		"Long": -90.5054559,
+		"Description": "St. Luke's Episcopal-Presbyterian Hospital (St. Luke's ) provides quality medical healthcare regardless of race, creed, sex, national origin, handicap, age or ability to pay."
+	},
+	{
+		"Name": "West County Clinic - Volunteers in Medicine West County - Manchester",
+		"Number": "(636) 207-5970",
+		"Lat": 38.593367,
+		"Long": -90.5180307,
+		"Description": "Free ClinicPhones are only answered during clinic hours. Hours: Sundays 2pm to 4pm.For patients from the age of 18 - 64 years old. Must live in Manchester, Winchester, Des Peres, Ballwin, Chesterfield, Wildwood, or Town and Country areas of Saint Louis County."
+	},
+	{
+		"Name": "Isaac Bruce Foundation - O'Fallon",
+		"Number": "(216) 222-8241",
+		"Lat": 38.8282662,
+		"Long": -90.6909217,
+		"Description": "THE FOUNDATION'S FOCUS IS ON EDUCATING YOUNG PEOPLE ON THE ISSUES OF HEALTH, FITNESS AND NUTRITION. THE FOUNDATION WILL SPONSOR AND CONDUCT A FREE FOOTBALL CLINIC FOR CHILDREN IN THE ST LOUIS, MO AREA THAT WILL BE HIGHLIGHTED BY THE PARTICIPATION OF THE NFL'S MR. ISAAC BRUCE."
+	},
+	{
+		"Name": "Missouri College Free Dental Clinic - Brentwood",
+		"Number": "(314) 768-7898",
+		"Lat": 38.6272521,
+		"Long": -90.3381714,
+		"Description": "Dental  hygiene students, supervised by dentists on staff, provide patients with a range of dental services including X-rays, gum treatments, teeth cleaning and fluoride treatments for adults and children."
+	},
+	{
+		"Name": "Faith Community Health Center - Branson",
+		"Number": "(417) 336-9355",
+		"Lat": 36.6402404,
+		"Long": -93.2248118,
+		"Description": "This clinic operates under a SLIDING SCALE model. This means that it MAY NOT be free depending on your income. You will be required to prove financial need in order to receive free services or services at a reduced cost. In order to get more information on this clinic, click on the icons below. You may be required to join for free in order to access full contact information."
+	},
+	{
+		"Name": "Jordan Valley Community Health Center-Medical - Springfield",
+		"Number": "(417) 831-0150",
+		"Lat": 37.2131016,
+		"Long": -93.290577,
+		"Description": "Adult and children medical programs, behavioral health, pharmacy, X-ray, laboratory services, procedure rooms, health education, vision services, and the Springfield-Greene County WIC Program"
+	},
+	{
+		"Name": "Crider Health Center Inc - Wentzville",
+		"Number": "(636) 332-6000",
+		"Lat": 38.8027449,
+		"Long": -90.819314,
+		"Description": "Permanent Clinic."
+	},
+	{
+		"Name": "Samaritan Center Jefferson City - Jefferson City",
+		"Number": "(573) 634‐777",
+		"Lat": 38.5633882,
+		"Long": -92.1594536,
+		"Description": "In addition to food, the Samaritan Center offers free of charge, clothing, medical and dental care, legal care, tax assistance program, utility assistance and prescription assistance."
+	},
+	{
+		"Name": "Still Caring Health Connection - Kirksville",
+		"Number": "(660) 525-7824",
+		"Lat": 40.1932378,
+		"Long": -92.591431,
+		"Description": "This student-led, provider-supervised clinic provides medical, dental and referral services to uninsured adult patients in the greater Kirkville area."
+	},
+	{
+		"Name": "Community Health Clinic Of Joplin - Joplin",
+		"Number": "(417) 624-5500",
+		"Lat": 37.0838575,
+		"Long": -94.516497,
+		"Description": "Dental services are provided on fridays by appointment only. Call for details."
+	},
+	{
+		"Name": "Medzou Community Health Clinic - Columbia",
+		"Number": "(573) 356-2499",
+		"Lat": 38.960504,
+		"Long": -92.3358667,
+		"Description": "MedZou Community Health Clinic is a student-operated medical clinic that provides free primary health care. Our mission is to provide high-quality, patient-centered care for uninsured residents of Central Missouri, while educating heath care students about working with underserved populations. "
+	},
+	{
+		"Name": "Hannibal Free Clinic - Hannibal",
+		"Number": "(573) 248-8307",
+		"Lat": 37.7635967,
+		"Long": -89.9040073,
+		"Description": "This clinic is based on Sliding scale which fees are variable prices for products, services, or taxes based on a customer's ability to pay. Such fees are thereby reduced for those who have lower incomes, or alternatively, less money to spare after their personal expenses, regardless of income."
 	}
 ]
