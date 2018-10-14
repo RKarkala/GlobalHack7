@@ -14,4 +14,10 @@
         android:id="@+id/clinics"
         android:icon="@drawable/clinics"
         android:title="Clinics" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings"
+        android:title="Settings"
+        />
 </menu>

@@ -36,6 +36,9 @@ public class BottomNavigation extends AppCompatActivity {
                     System.out.println("clinics");
                     fragment = new MapsActivity();
                     return loadFragment(fragment);
+                case R.id.settings:
+                    fragment = new LanguageFragment();
+                    return loadFragment(fragment);
             }
             return true;
 

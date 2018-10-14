@@ -128,6 +128,7 @@ class MainActivity : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
             val temp = sourceLanguageCode
             sourceLanguageCode = targetLanguageCode
             targetLanguageCode = temp
+            Toast.makeText(context, "${sourceLanguageCode}->${targetLanguageCode}", Toast.LENGTH_LONG).show()
         }
     }
 
